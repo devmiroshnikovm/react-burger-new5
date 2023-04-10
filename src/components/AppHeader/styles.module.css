@@ -1,0 +1,38 @@
+.box {
+  max-width: 1240px;
+  margin: 0 auto;
+  margin-top: 24px;
+  margin-bottom: 24px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.burgerMenuWrapper {
+  display: flex;
+  justify-content: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.burgerLabelWrapper {
+  display: flex;
+  justify-content: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.menuLabelWrapper {
+  display: flex;
+  justify-content: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.loginLabelWrapper {
+  display: flex;
+  justify-content: row;
+  align-items: center;
+  justify-content: center;
+}

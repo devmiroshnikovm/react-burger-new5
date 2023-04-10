@@ -1,0 +1,14 @@
+.ingredient {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #131316;
+}
+
+.priceIconWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 9px;
+}

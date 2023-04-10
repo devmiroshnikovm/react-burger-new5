@@ -1,0 +1,26 @@
+.box {
+  min-width: 600px;
+  margin: 0 auto;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.dragIconConstructorElementWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bottomElementsWrapper {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.scrollContainer {
+  overflow-y: scroll;
+  height: 560px;
+}

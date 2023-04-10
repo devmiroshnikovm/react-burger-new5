@@ -1,0 +1,12 @@
+.box {
+  max-width: 1240px;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.topBox {
+  min-height: 100vh;
+}
