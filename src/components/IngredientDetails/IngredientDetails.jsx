@@ -3,6 +3,11 @@ import PropTypes from "prop-types";
 
 function IngredientDetails(props) {
   const { ingredient } = props;
+
+  // вот тут вместо прокидывания props 
+  // я сразу подписываюсь на stor 
+  // ingredient = dataFromStore через useSelect
+  
   return (
     <>
       <div className={styles.modalContaner}>

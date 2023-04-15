@@ -2,11 +2,34 @@ import styles from "./styles.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 
+//redux
+import { useSelector, useDispatch } from "react-redux";
+
+//import actions
+import { setCurrentIngredient } from "../../services/actions/currentIngradients";
+import { deleteCurrentIngredient } from "../../services/actions/currentIngradients";
+
 function BurgerIngredient(props) {
-  const { ingredient, handleOnSelect } = props;
+  const { ingredient, handleOnSelect, handleOpenModal } = props;
+
+  const dispatch = useDispatch();
 
   function handleOnclick() {
-    handleOnSelect(ingredient);
+    console.log(ingredient);
+    // handleOnSelect(ingredient); // это как было раньше
+    // сразу запишем данные в stor
+    // записываем в stor
+    dispatch(setCurrentIngredient(ingredient));
+
+    /* 
+    чтобы открылось окно нужно еще сделать isOpen = true
+
+
+    const [isOpen, setIsPopupOpen] = useState(false);
+    function handleOpenModal() {
+    setIsPopupOpen(true);
+  }
+    */
   }
   return (
     <>

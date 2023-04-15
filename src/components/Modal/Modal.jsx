@@ -54,7 +54,6 @@ function Modal(props) {
   useEffect(() => {
     // Код эффекта
     setDomReady(true);
-    console.log("Mounted");
     document.addEventListener("keydown", handlePopupByEscape);
 
     // Код сброса

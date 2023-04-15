@@ -7,9 +7,10 @@ import Modal from "../Modal/Modal";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import { useState } from "react";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
 function BurgerConstructor(props) {
-  const { elements, handleOpenModal, handleCloseModal, isOpen } = props;
+  const { handleOpenModal, handleCloseModal, isOpen } = props;
 
   const [isOrderDetailsOpen, setOrderDetails] = useState(false);
 
@@ -23,6 +24,12 @@ function BurgerConstructor(props) {
       setOrderDetails(true);
     }
   }
+
+  // берем данные из хранилища
+  const { data, dataRequest, dataFailed } = useSelector(
+    (state) => state.ingredients
+  );
+  const elements = data;
 
   return (
     <>

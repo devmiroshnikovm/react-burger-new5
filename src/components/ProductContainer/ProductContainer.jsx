@@ -1,9 +1,16 @@
 import styles from "./styles.module.css";
 import BurgerIngredient from "../BurgerIngredient/BurgerIngredient";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
 function ProductContainer(props) {
-  const { elements, handleOnSelect, isOpen, ...otherProps } = props;
+  const { elements_old, handleOnSelect, isOpen, ...otherProps } = props;
+
+  // берем данные из хранилища
+  const { data, dataRequest, dataFailed } = useSelector(
+    (state) => state.ingredients
+  );
+  const elements = data;
 
   return (
     <>
@@ -65,7 +72,3 @@ ProductContainer.propTypes = {
   handleOnSelect: PropTypes.func,
   isOpen: PropTypes.bool,
 };
-
-{
-  /* <ElementItem elements={elements} /> */
-}
