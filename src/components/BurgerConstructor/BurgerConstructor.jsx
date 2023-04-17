@@ -79,6 +79,8 @@ function BurgerConstructor(props) {
                 return element.board === board;
               })
               .map((element) => {
+                const statusLock = element.type === "bun" ? true : false;
+
                 return (
                   <li
                     className={`${styles.dragIconConstructorElementWrapper} mb-4`}
@@ -87,7 +89,7 @@ function BurgerConstructor(props) {
                     <DragIcon />
 
                     <ConstructorElement
-                      isLocked={true}
+                      isLocked={statusLock}
                       text={element.name}
                       price={element.price}
                       thumbnail={element.image}
