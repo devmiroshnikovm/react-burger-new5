@@ -8,6 +8,11 @@ import { useSelector, useDispatch } from "react-redux";
 import Loading from "../Loading/Loading";
 
 import { fetchData } from "../../services/actions/ingredients.js";
+//import { addSyntheticLeadingComment, getAllJSDocTagsOfKind } from "typescript";
+//import { store } from "../../services/store/store";
+
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 function App() {
   const [error, setError] = useState(null);
@@ -36,27 +41,29 @@ function App() {
 
   return (
     <>
-      {dataRequest ? (
-        <Loading />
-      ) : (
-        <>
-          <div className={stylesApp.topBox}>
-            <AppHeader />
-            <main className={stylesApp.box}>
-              <BurgerIngredients
-                isOpen={isOpen}
-                handleOpenModal={handleOpenModal}
-                handleCloseModal={handleCloseModal}
-              />
-              <BurgerConstructor
-                isOpen={isOpen}
-                handleOpenModal={handleOpenModal}
-                handleCloseModal={handleCloseModal}
-              />
-            </main>
-          </div>
-        </>
-      )}
+      <DndProvider backend={HTML5Backend}>
+        {dataRequest ? (
+          <Loading />
+        ) : (
+          <>
+            <div className={stylesApp.topBox}>
+              <AppHeader />
+              <main className={stylesApp.box}>
+                <BurgerIngredients
+                  isOpen={isOpen}
+                  handleOpenModal={handleOpenModal}
+                  handleCloseModal={handleCloseModal}
+                />
+                <BurgerConstructor
+                  isOpen={isOpen}
+                  handleOpenModal={handleOpenModal}
+                  handleCloseModal={handleCloseModal}
+                />
+              </main>
+            </div>
+          </>
+        )}
+      </DndProvider>
     </>
   );
 }

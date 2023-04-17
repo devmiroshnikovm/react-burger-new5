@@ -9,10 +9,23 @@ import { useSelector, useDispatch } from "react-redux";
 import { setCurrentIngredient } from "../../services/actions/currentIngradients";
 import { deleteCurrentIngredient } from "../../services/actions/currentIngradients";
 
+import { useDrag } from "react-dnd";
+
 function BurgerIngredient(props) {
   const { ingredient, handleOnSelect, handleOpenModal } = props;
+  const id = ingredient._id;
 
   const dispatch = useDispatch();
+
+  //drug
+
+  const [{ isDrag }, dragRef] = useDrag({
+    type: "ingredients",
+    item: { id },
+    collect: (monitor) => ({
+      isDrag: monitor.isDragging(),
+    }),
+  });
 
   function handleOnclick() {
     console.log(ingredient);
@@ -20,6 +33,7 @@ function BurgerIngredient(props) {
     // сразу запишем данные в stor
     // записываем в stor
     dispatch(setCurrentIngredient(ingredient));
+    handleOpenModal();
 
     /* 
     чтобы открылось окно нужно еще сделать isOpen = true
@@ -31,9 +45,18 @@ function BurgerIngredient(props) {
   }
     */
   }
-  return (
+
+  const countView = (
+    <div className={styles.counterWrapper}>
+      <span className={`${styles.counter} text text_type_main-default`}>
+        {ingredient.count}
+      </span>
+    </div>
+  );
+  const view = (
     <>
-      <li className={styles.ingredient} onClick={handleOnclick}>
+      <li className={styles.ingredient} onClick={handleOnclick} ref={dragRef}>
+        {ingredient.count > 0 && countView}
         <img
           src={ingredient.image}
           alt={ingredient.name}
@@ -51,6 +74,8 @@ function BurgerIngredient(props) {
       </li>
     </>
   );
+
+  return view;
 }
 
 export default BurgerIngredient;

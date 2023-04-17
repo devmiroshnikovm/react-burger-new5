@@ -4,7 +4,13 @@ import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 
 function ProductContainer(props) {
-  const { elements_old, handleOnSelect, isOpen, ...otherProps } = props;
+  const {
+    elements_old,
+    handleOnSelect,
+    handleOpenModal,
+    isOpen,
+    ...otherProps
+  } = props;
 
   // берем данные из хранилища
   const { data, dataRequest, dataFailed } = useSelector(
@@ -24,6 +30,7 @@ function ProductContainer(props) {
                   ingredient={element}
                   key={element._id}
                   handleOnSelect={handleOnSelect}
+                  handleOpenModal={handleOpenModal}
                   isOpen={isOpen}
                 />
               );
@@ -39,6 +46,7 @@ function ProductContainer(props) {
                   ingredient={element}
                   key={element._id}
                   handleOnSelect={handleOnSelect}
+                  handleOpenModal={handleOpenModal}
                   isOpen={isOpen}
                 />
               );
@@ -54,6 +62,7 @@ function ProductContainer(props) {
                   ingredient={element}
                   key={element._id}
                   handleOnSelect={handleOnSelect}
+                  handleOpenModal={handleOpenModal}
                   isOpen={isOpen}
                 />
               );

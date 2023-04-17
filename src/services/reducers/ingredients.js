@@ -1,13 +1,15 @@
+import { act } from "react-dom/test-utils";
 import {
   GET_REQUEST,
   GET_REQUEST_FAILED,
   GET_REQUEST_SUCCESS,
+  UPDATE_BOARD,
 } from "../constants/constants";
 
 const initialState = {
   dataRequest: false,
   dataFailed: false,
-  data: [],
+  data: [], // потом при action дописываю board в каждый элемент - на основании этого board потом будем рендерить элементы в burgerConstructor
 };
 
 export const ingredientsReducer = (state = initialState, action) => {
@@ -26,7 +28,11 @@ export const ingredientsReducer = (state = initialState, action) => {
       return {
         ...state,
         // Запрос выполнился успешно, помещаем полученные данные в хранилище
-        data: action.data,
+        data: action.data.map((item) => ({
+          ...item,
+          board: "default",
+          count: 0,
+        })),
         // Запрос закончил своё выполнение
         dataRequest: false,
       };
@@ -41,8 +47,38 @@ export const ingredientsReducer = (state = initialState, action) => {
         dataRequest: false,
       };
     }
+
+    case UPDATE_BOARD: {
+      // на основании id элемента меняем его свойство board
+      const updatedData = state.data.map((item) => {
+        if (item._id === action._id) {
+          return {
+            ...item,
+            board: action.board,
+            count: action.count,
+          };
+        }
+        return item;
+      });
+
+      return {
+        ...state,
+        data: updatedData,
+      };
+    }
+
     default: {
       return state;
     }
   }
 };
+
+/* switch (action.type) {
+  case "UPDATE_TYPE": {
+    return {
+      ...state,
+      animals: state.animals.map((animal) =>
+        animal.id === action.id ? { ...animal, board: action.board } : animal
+      ),
+    };
+  } */

@@ -3,12 +3,41 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #131316;
+  /*  background-color: #131316; */
+  background-color: transparent;
+
+  position: relative;
+  z-index: 100;
 }
 
+.ingredient:hover {
+  cursor: pointer;
+  outline: 1px solid red;
+}
 .priceIconWrapper {
   display: flex;
   justify-content: center;
   align-items: center;
   column-gap: 9px;
+}
+.counterWrapper {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  z-index: 300;
+
+  background-color: #4c4cff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.counter {
+  color: #f2f2f3;
 }

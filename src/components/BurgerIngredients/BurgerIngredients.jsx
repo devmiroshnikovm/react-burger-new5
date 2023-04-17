@@ -19,7 +19,8 @@ function BurgerIngredients(props) {
     (state) => state.currentIngredients
   );
 
-  console.log("currentIngredients:", currentIngredients);
+  //const { data } = useSelector((state) => state.ingredients);
+  //console.log("data:", data[0]);
 
   function handleOnSelect(ingredient) {
     //setCurrentIngredient(ingredient);
