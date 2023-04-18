@@ -10,6 +10,9 @@ import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
 import { useDrop } from "react-dnd";
 
+import { setIngredientToBurger } from "../../services/actions/selectedIngredients";
+import { deleteIngredientToBurger } from "../../services/actions/selectedIngredients";
+
 function BurgerConstructor(props) {
   const { handleOpenModal, handleCloseModal, isOpen } = props;
 
@@ -26,44 +29,44 @@ function BurgerConstructor(props) {
     }
   }
 
-  //drug drop
+  // подписываемся на новые данные из нового хранилища storegeConstructor
   const dispatch = useDispatch();
-  const { data } = useSelector((state) => state.ingredients);
 
-  //test
+  const { selectedIngredients } = useSelector(
+    (state) => state.selectedIngredients
+  );
+
+  // check if our new storegeConstructor works
   useEffect(() => {
-    // You can filter the data to see only the items with a 'test' board type
-    const itemsWithTestBoard = data.filter((item) => item.board === "test");
-    console.log(itemsWithTestBoard);
-  }, [data]);
+    //console.log(selectedIngredients);
+  }, [selectedIngredients]);
 
   const board = "burgerConstructor";
   let count = 0;
 
+  // drug drop section
   const [{ isHover }, drop] = useDrop({
     accept: "ingredients",
     collect: (monitor) => ({
       isHover: monitor.isOver(),
     }),
-    drop(itemId) {
-      // Отправим экшен с текущим перетаскиваемым элементом и названием доски
-      dispatch({
-        type: "UPDATE_BOARD",
-        _id: itemId.id,
-        //...itemId, это целый перетаскиваемый элемент
-        board,
-        count: count + 1,
-      });
+    drop(item) {
+      dispatch(setIngredientToBurger(item));
     },
   });
 
-  // берем данные из хранилища
-  const { ingredientsInBurger } = useSelector(
-    (state) => state.ingredientsInBurger
-  );
-  const elements = ingredientsInBurger;
+  // drug drop section
+
+  // передаем элементы из нового хранилища в elements
+  const elements = selectedIngredients;
 
   const borderColor = isHover ? "lightgreen" : "transparent";
+
+  const handeOnDeleteIngredient = (element) => {
+    console.log(element);
+    console.log("handeOnDeleteIngredient");
+    dispatch(deleteIngredientToBurger(element));
+  };
 
   return (
     <>
@@ -74,29 +77,28 @@ function BurgerConstructor(props) {
       >
         <div className={`${styles.scrollContainer} custom-scroll`}>
           <ul className={styles.list}>
-            {data
-              .filter((element) => {
-                return element.board === board;
-              })
-              .map((element) => {
-                const statusLock = element.type === "bun" ? true : false;
+            {elements.map((element) => {
+              // отрисовываем элемент
+              // проверяем если элемент булка
+              const statusLock = element.type === "bun" ? true : false;
 
-                return (
-                  <li
-                    className={`${styles.dragIconConstructorElementWrapper} mb-4`}
-                    key={element._id}
-                  >
-                    <DragIcon />
+              return (
+                <li
+                  className={`${styles.dragIconConstructorElementWrapper} mb-4`}
+                  key={element.dropUniqID}
+                >
+                  <DragIcon />
 
-                    <ConstructorElement
-                      isLocked={statusLock}
-                      text={element.name}
-                      price={element.price}
-                      thumbnail={element.image}
-                    />
-                  </li>
-                );
-              })}
+                  <ConstructorElement
+                    isLocked={statusLock}
+                    text={element.name}
+                    price={element.price}
+                    thumbnail={element.image}
+                    handleClose={() => handeOnDeleteIngredient(element)}
+                  />
+                </li>
+              );
+            })}
           </ul>
         </div>
         <div className={styles.bottomElementsWrapper + " mt-10"}>
@@ -137,32 +139,3 @@ BurgerConstructor.propTypes = {
   handleCloseModal: PropTypes.func,
   isOpen: PropTypes.bool,
 };
-
-/* {animals
-  // Получим массив животных, соответствующих целевому элементу
-  .filter((animal) => {
-    return animal.board === board;
-  })
-  // Отрисуем массив
-  .map((animal) => (
-    <Item key={animal.id} data={animal} styleIndex={styleIndex} />
-  ))} */
-
-/* 
-  {elements.map((element) => {
-    return (
-      <li
-        className={`${styles.dragIconConstructorElementWrapper} mb-4`}
-        key={element._id}
-      >
-        <DragIcon />
-
-        <ConstructorElement
-          isLocked={true}
-          text={element.name}
-          price={element.price}
-          thumbnail={element.image}
-        />
-      </li>
-    );
-  })} */

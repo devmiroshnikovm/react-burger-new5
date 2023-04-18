@@ -13,15 +13,12 @@ import { useDrag } from "react-dnd";
 
 function BurgerIngredient(props) {
   const { ingredient, handleOnSelect, handleOpenModal } = props;
-  const id = ingredient._id;
 
   const dispatch = useDispatch();
 
-  //drug
-
   const [{ isDrag }, dragRef] = useDrag({
     type: "ingredients",
-    item: { id },
+    item: { ...ingredient },
     collect: (monitor) => ({
       isDrag: monitor.isDragging(),
     }),

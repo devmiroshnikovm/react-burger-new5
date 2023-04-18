@@ -101,3 +101,60 @@ store:
 
 объект созданного заказа:
 ...
+
+а данные лежат в другом stor
+const listOfFetchedIngredients = [
+{
+name: "Alice",
+id: 1,
+value: 42
+},
+{
+name: "Bob",
+id: 2,
+value: 37
+},
+{
+name: "Carol",
+id: 3,
+value: 55
+}
+];
+
+если по нормальному нужно в druggable items передавать ТОЛЬКО id
+const listOdDroppedIngredients = [
+{
+id: 1,
+uniqID: "unique-1"
+},
+{
+id: 2,
+uniqID: "unique-2"
+},
+{
+id: 3,
+uniqID: "unique-3"
+}
+]
+
+const listOfUpdatedIngredients = [
+{
+id: 1,
+name: "Alice",
+value: 42
+uniqID: "unique-1"
+},
+{
+id: 1,
+uniqID: "unique-2"
+name: "Alice",
+value: 42
+},
+{
+id: 3,
+uniqID: "unique-3"
+name: "Carol",
+value: 55
+}
+]
+каким образом организовать передачу данных?

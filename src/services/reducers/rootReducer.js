@@ -1,12 +1,12 @@
 import { combineReducers } from "redux";
 import { ingredientsReducer } from "./ingredients";
 import { currentIngredientReducer } from "./currentIngredient";
-import { ingredientsInBurgerReducer } from "./ingredientsInBurger";
+import { selectedIngredientsReducer } from "./selectedIngredients";
 
 const rootReducer = combineReducers({
   ingredients: ingredientsReducer,
   currentIngredients: currentIngredientReducer,
-  ingredientsInBurger: ingredientsInBurgerReducer,
+  selectedIngredients: selectedIngredientsReducer,
 });
 
 export default rootReducer;

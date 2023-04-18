@@ -49,13 +49,13 @@ export const ingredientsReducer = (state = initialState, action) => {
     }
 
     case UPDATE_BOARD: {
-      // на основании id элемента меняем его свойство board
       const updatedData = state.data.map((item) => {
         if (item._id === action._id) {
           return {
             ...item,
             board: action.board,
             count: action.count,
+            dropUniqID: action.dropUniqID,
           };
         }
         return item;
