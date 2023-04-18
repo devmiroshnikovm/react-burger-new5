@@ -1,15 +1,15 @@
-import { act } from "react-dom/test-utils";
+// это первоначальный  массив загружаемый по API
 import {
   GET_REQUEST,
   GET_REQUEST_FAILED,
   GET_REQUEST_SUCCESS,
-  UPDATE_BOARD,
+  UPDATE_COUNT,
 } from "../constants/constants";
 
 const initialState = {
   dataRequest: false,
   dataFailed: false,
-  data: [], // потом при action дописываю board в каждый элемент - на основании этого board потом будем рендерить элементы в burgerConstructor
+  data: [],
 };
 
 export const ingredientsReducer = (state = initialState, action) => {
@@ -48,17 +48,15 @@ export const ingredientsReducer = (state = initialState, action) => {
       };
     }
 
-    case UPDATE_BOARD: {
+    case UPDATE_COUNT: {
+      // Iterate over the action.data object's keys (IDs) and update the corresponding count values
       const updatedData = state.data.map((item) => {
-        if (item._id === action._id) {
-          return {
-            ...item,
-            board: action.board,
-            count: action.count,
-            dropUniqID: action.dropUniqID,
-          };
+        const countUpdate = action.data[item._id];
+        if (countUpdate) {
+          return { ...item, count: countUpdate.count };
+        } else {
+          return item;
         }
-        return item;
       });
 
       return {
@@ -72,13 +70,3 @@ export const ingredientsReducer = (state = initialState, action) => {
     }
   }
 };
-
-/* switch (action.type) {
-  case "UPDATE_TYPE": {
-    return {
-      ...state,
-      animals: state.animals.map((animal) =>
-        animal.id === action.id ? { ...animal, board: action.board } : animal
-      ),
-    };
-  } */

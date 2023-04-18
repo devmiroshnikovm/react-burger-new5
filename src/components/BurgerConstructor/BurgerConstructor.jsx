@@ -12,6 +12,7 @@ import { useDrop } from "react-dnd";
 
 import { setIngredientToBurger } from "../../services/actions/selectedIngredients";
 import { deleteIngredientToBurger } from "../../services/actions/selectedIngredients";
+import { countDropUniqID } from "../../services/utils/utils";
 
 function BurgerConstructor(props) {
   const { handleOpenModal, handleCloseModal, isOpen } = props;
@@ -36,10 +37,18 @@ function BurgerConstructor(props) {
     (state) => state.selectedIngredients
   );
 
-  // check if our new storegeConstructor works
   useEffect(() => {
-    //console.log(selectedIngredients);
+    const uniqIDCounts = countDropUniqID(selectedIngredients, "_id");
+
+    dispatch({
+      type: "UPDATE_COUNT",
+      data: uniqIDCounts,
+    });
   }, [selectedIngredients]);
+
+  //
+  //
+  //
 
   const board = "burgerConstructor";
   let count = 0;
@@ -62,11 +71,15 @@ function BurgerConstructor(props) {
 
   const borderColor = isHover ? "lightgreen" : "transparent";
 
+  // handle button click
   const handeOnDeleteIngredient = (element) => {
-    console.log(element);
-    console.log("handeOnDeleteIngredient");
     dispatch(deleteIngredientToBurger(element));
   };
+
+  // test
+  const { data, dataRequest, dataFailed } = useSelector(
+    (state) => state.ingredients
+  );
 
   return (
     <>

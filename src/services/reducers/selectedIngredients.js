@@ -1,4 +1,5 @@
-import { act } from "react-dom/test-utils";
+//reducer for burgerConstructor
+
 import {
   INGREDIENT_TO_BURGER_SET,
   INGREDIENT_TO_BURGER_DELETE,
@@ -11,17 +12,13 @@ const initialState = {
 export const selectedIngredientsReducer = (state = initialState, action) => {
   switch (action.type) {
     case INGREDIENT_TO_BURGER_SET: {
-      console.log("selectedIngredientsReducer");
-      console.log(action);
-
+      console.log(state);
       return {
         ...state,
         selectedIngredients: [...state.selectedIngredients, action.data],
       };
     }
     case INGREDIENT_TO_BURGER_DELETE: {
-      // получаем только уникальный id
-      console.log(action);
       return {
         ...state,
         selectedIngredients: state.selectedIngredients.filter(

@@ -8,8 +8,7 @@ export const config = {
 export const GET_REQUEST = "GET_REQUEST";
 export const GET_REQUEST_FAILED = "GET_REQUEST_FAILED";
 export const GET_REQUEST_SUCCESS = "GET_REQUEST_SUCCESS";
-export const UPDATE_BOARD = "UPDATE_BOARD";
-export const UPDATE_ITEMS_COUNT = "UPDATE_ITEMS_COUNT";
+export const UPDATE_COUNT = "UPDATE_COUNT";
 
 //currentIngredients
 export const CURRENT_INGREDIENT_SET = "CURRENT_INGREDIENT_SET";

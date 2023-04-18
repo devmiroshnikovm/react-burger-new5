@@ -16,6 +16,7 @@ function ProductContainer(props) {
   const { data, dataRequest, dataFailed } = useSelector(
     (state) => state.ingredients
   );
+
   const elements = data;
 
   return (
