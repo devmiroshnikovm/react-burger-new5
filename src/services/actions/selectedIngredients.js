@@ -9,7 +9,7 @@ import { v4 as uuidv4 } from "uuid";
 export const setIngredientToBurger = (element) => {
   element.dropUniqID = uuidv4();
   element.board = "burgerConstructor";
-  element.count = "1";
+  element.count = 10;
 
   return {
     type: INGREDIENT_TO_BURGER_SET,
@@ -23,3 +23,5 @@ export const deleteIngredientToBurger = (element) => {
     data: element,
   };
 };
+
+// useSelector вернет только одну сумму посчитав все данные из стор

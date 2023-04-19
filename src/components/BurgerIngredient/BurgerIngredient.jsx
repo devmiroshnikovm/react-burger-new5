@@ -11,6 +11,8 @@ import { deleteCurrentIngredient } from "../../services/actions/currentIngradien
 
 import { useDrag } from "react-dnd";
 
+import { useState } from "react";
+
 function BurgerIngredient(props) {
   const { ingredient, handleOnSelect, handleOpenModal } = props;
 

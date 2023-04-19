@@ -9,15 +9,49 @@ function ProductContainer(props) {
     handleOnSelect,
     handleOpenModal,
     isOpen,
+
     ...otherProps
   } = props;
 
   // берем данные из хранилища
   const { data, dataRequest, dataFailed } = useSelector(
     (state) => state.ingredients
+
+    // получить доступ
+    // взять массив из конструктора с уникальными id
+    // создать новый массив newData c кол-вом
   );
 
-  const elements = data;
+  /*
+  const { selectedIngredients } = useSelector(
+    (state) => {
+      state.selectedIngredients;
+    } */
+
+  const getElementsForConstructorWithCounts = (state) => {
+    const constructorItemsArray = state.selectedIngredients.selectedIngredients;
+    const burgerIngredients = state.ingredients.data; // array from API
+
+    const updatedBurgerIngredients = burgerIngredients.reduce(
+      (accumulator, itemA) => {
+        const count = constructorItemsArray.filter(
+          (itemB) => itemB._id === itemA._id
+        ).length;
+
+        accumulator.push({ ...itemA, count });
+        return accumulator;
+      },
+      []
+    );
+
+    return updatedBurgerIngredients;
+  };
+
+  const updatedBurgerIngredients = useSelector(
+    getElementsForConstructorWithCounts
+  );
+
+  const elements = updatedBurgerIngredients;
 
   return (
     <>

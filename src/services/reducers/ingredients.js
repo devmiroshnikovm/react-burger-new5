@@ -17,23 +17,20 @@ export const ingredientsReducer = (state = initialState, action) => {
     case GET_REQUEST: {
       return {
         ...state,
-        // Запрос начал выполняться
         dataRequest: true,
-        // Сбрасываем статус наличия ошибок от предыдущего запроса
-        // на случай, если он был и завершился с ошибкой
         dataFailed: false,
       };
     }
     case GET_REQUEST_SUCCESS: {
       return {
         ...state,
-        // Запрос выполнился успешно, помещаем полученные данные в хранилище
+
         data: action.data.map((item) => ({
           ...item,
           board: "default",
           count: 0,
         })),
-        // Запрос закончил своё выполнение
+
         dataRequest: false,
       };
     }
@@ -49,9 +46,9 @@ export const ingredientsReducer = (state = initialState, action) => {
     }
 
     case UPDATE_COUNT: {
-      // Iterate over the action.data object's keys (IDs) and update the corresponding count values
       const updatedData = state.data.map((item) => {
         const countUpdate = action.data[item._id];
+
         if (countUpdate) {
           return { ...item, count: countUpdate.count };
         } else {

@@ -10,8 +10,14 @@ import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 
 function BurgerIngredients(props) {
-  const { elements, handleOpenModal, handleCloseModal, isOpen, ...otherProps } =
-    props;
+  const {
+    elements,
+    handleOpenModal,
+    handleCloseModal,
+    isOpen,
+
+    ...otherProps
+  } = props;
 
   //const [currentIngredient, setCurrentIngredient] = useState(null); было раньше
   // читаем из redux

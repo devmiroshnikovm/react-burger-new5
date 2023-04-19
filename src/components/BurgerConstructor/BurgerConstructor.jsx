@@ -40,18 +40,26 @@ function BurgerConstructor(props) {
   useEffect(() => {
     const uniqIDCounts = countDropUniqID(selectedIngredients, "_id");
 
+    // при последнем элементе selectedIngredients уже 0
+    // это не работет
     dispatch({
       type: "UPDATE_COUNT",
       data: uniqIDCounts,
     });
   }, [selectedIngredients]);
 
+  // handle button click
+  const handeOnDeleteIngredient = (element) => {
+    dispatch(deleteIngredientToBurger(element));
+
+    data.map((element) => console.log(element._id + " " + element.count));
+  };
   //
   //
   //
 
-  const board = "burgerConstructor";
-  let count = 0;
+  //const board = "burgerConstructor";
+  //let count = 0;
 
   // drug drop section
   const [{ isHover }, drop] = useDrop({
@@ -70,11 +78,6 @@ function BurgerConstructor(props) {
   const elements = selectedIngredients;
 
   const borderColor = isHover ? "lightgreen" : "transparent";
-
-  // handle button click
-  const handeOnDeleteIngredient = (element) => {
-    dispatch(deleteIngredientToBurger(element));
-  };
 
   // test
   const { data, dataRequest, dataFailed } = useSelector(
