@@ -5,13 +5,12 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../Modal/Modal";
 import OrderDetails from "../OrderDetails/OrderDetails";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
 import { useDrop } from "react-dnd";
 
 import { setIngredientToBurger } from "../../services/actions/selectedIngredients";
-import { deleteIngredientToBurger } from "../../services/actions/selectedIngredients";
 
 import { getSelectedElementsSelector } from "../../services/actions/selectors/getSelectedElementsSelector";
 import { getTotalPriceSelector } from "../../services/actions/selectors/getTotalPriceSelector";
@@ -23,6 +22,10 @@ import { setCurrentOder } from "../../services/actions/orderDetails";
 import { getOrderNumberSelector } from "../../services/actions/selectors/getOrderNumberSelector";
 
 import { useMemo } from "react";
+import { useDrag } from "react-dnd";
+import DraggableIngradient from "../DraggableIngradient/DraggableIngradient";
+import update from "immutability-helper";
+import { updateSelectedElements } from "../../services/actions/selectedIngredients";
 
 function BurgerConstructor(props) {
   const { handleOpenModal, handleCloseModal, isOpen } = props;
@@ -67,11 +70,6 @@ function BurgerConstructor(props) {
   // подписываемся на новые данные из нового хранилища storegeConstructor
   const dispatch = useDispatch();
 
-  // handle button click
-  const handeOnDeleteIngredient = (element) => {
-    dispatch(deleteIngredientToBurger(element));
-  };
-
   // drug drop section
   const [{ isHover }, drop] = useDrop({
     accept: "ingredients",
@@ -95,8 +93,25 @@ function BurgerConstructor(props) {
   // передаем элементы из нового хранилища в elements
   const elements = selectedElements;
 
-  const borderColor = isHover ? "lightgreen" : "transparent";
+  ///////////////////////
 
+  const moveCard = useCallback(
+    (dragIndex, hoverIndex) => {
+      console.log(`dragIndex: ${dragIndex}, hoverIndex: ${hoverIndex}`);
+
+      const updatedElements = update(selectedElements, {
+        $splice: [
+          [dragIndex, 1],
+          [hoverIndex, 0, selectedElements[dragIndex]],
+        ],
+      });
+
+      dispatch(updateSelectedElements(updatedElements));
+    },
+    [selectedElements, dispatch]
+  );
+
+  const borderColor = isHover ? "lightgreen" : "transparent";
   return (
     <>
       <div
@@ -106,26 +121,14 @@ function BurgerConstructor(props) {
       >
         <div className={`${styles.scrollContainer} custom-scroll`}>
           <ul className={styles.list}>
-            {elements.map((element) => {
-              // отрисовываем элемент
-              // проверяем если элемент булка
-              const statusLock = element.type === "bun" ? true : false;
-
+            {elements.map((element, index) => {
               return (
-                <li
-                  className={`${styles.dragIconConstructorElementWrapper} mb-4`}
+                <DraggableIngradient
                   key={element.dropUniqID}
-                >
-                  <DragIcon />
-
-                  <ConstructorElement
-                    isLocked={statusLock}
-                    text={element.name}
-                    price={element.price}
-                    thumbnail={element.image}
-                    handleClose={() => handeOnDeleteIngredient(element)}
-                  />
-                </li>
+                  element={element}
+                  index={index}
+                  moveCard={moveCard}
+                />
               );
             })}
           </ul>

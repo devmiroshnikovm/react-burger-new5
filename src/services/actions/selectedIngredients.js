@@ -1,6 +1,7 @@
 import {
   INGREDIENT_TO_BURGER_SET,
   INGREDIENT_TO_BURGER_DELETE,
+  INGREDIENT_TO_BURGER_UPDATE,
 } from "../constants/constants";
 
 import { v4 as uuidv4 } from "uuid";
@@ -23,3 +24,8 @@ export const deleteIngredientToBurger = (element) => {
     data: element,
   };
 };
+
+export const updateSelectedElements = (element) => ({
+  type: INGREDIENT_TO_BURGER_UPDATE,
+  data: element,
+});

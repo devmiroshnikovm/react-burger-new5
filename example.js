@@ -1,101 +1,60 @@
-const selectedIngredients = [
-  {
-    board: "burgerConstructor",
-    calories: 14,
-    carbohydrates: 11,
-    count: "1",
-    dropUniqID: "dc57ff79-8ed7-47da-b91d-d37d5d3de2f3",
-    fat: 22,
-    image: "https://code.s3.yandex.net/react/code/sauce-04.png",
-    image_large: "https://code.s3.yandex.net/react/code/sauce-04-large.png",
-    image_mobile: "https://code.s3.yandex.net/react/code/sauce-04-mobile.png",
-    name: "Соус фирменный Space Sauce",
-    price: 80,
-    proteins: 50,
-    type: "sauce",
-    __v: 0,
-    _id: "643d69a5c3f7b9001cfa0943",
-  },
-  {
-    board: "burgerConstructor",
-    calories: 14,
-    carbohydrates: 11,
-    count: "1",
-    dropUniqID: "dc57ff79-8ed7-47da-b91d-d37d5d3de2f4",
-    fat: 22,
-    image: "https://code.s3.yandex.net/react/code/sauce-04.png",
-    image_large: "https://code.s3.yandex.net/react/code/sauce-04-large.png",
-    image_mobile: "https://code.s3.yandex.net/react/code/sauce-04-mobile.png",
-    name: "Соус фирменный Space Sauce",
-    price: 80,
-    proteins: 50,
-    type: "sauce",
-    __v: 0,
-    _id: "643d69a5c3f7b9001cfa0943",
-  },
-  {
-    board: "burgerConstructor",
-    calories: 14,
-    carbohydrates: 11,
-    count: "1",
-    dropUniqID: "dc57ff79-8ed7-47da-b91d-d37d5d3de2f5",
-    fat: 22,
-    image: "https://code.s3.yandex.net/react/code/sauce-04.png",
-    image_large: "https://code.s3.yandex.net/react/code/sauce-04-large.png",
-    image_mobile: "https://code.s3.yandex.net/react/code/sauce-04-mobile.png",
-    name: "Соус фирменный Space Sauce",
-    price: 80,
-    proteins: 50,
-    type: "sauce",
-    __v: 0,
-    _id: "643d69a5c3f7b9001cfa0943",
-  },
-  {
-    board: "burgerConstructor",
-    calories: 14,
-    carbohydrates: 11,
-    count: "1",
-    dropUniqID: "dc57ff79-8ed7-47da-b91d-d37d5d3de2f12",
-    fat: 22,
-    image: "https://code.s3.yandex.net/react/code/sauce-04.png",
-    image_large: "https://code.s3.yandex.net/react/code/sauce-04-large.png",
-    image_mobile: "https://code.s3.yandex.net/react/code/sauce-04-mobile.png",
-    name: "Соус фирменный Space Sauce",
-    price: 80,
-    proteins: 50,
-    type: "sauce",
-    __v: 0,
-    _id: "643d69a5c3f7b9001cfa09412",
-  },
-  {
-    board: "burgerConstructor",
-    calories: 14,
-    carbohydrates: 11,
-    count: "1",
-    dropUniqID: "dc57ff79-8ed7-47da-b91d-d37d5d3de2fwer",
-    fat: 22,
-    image: "https://code.s3.yandex.net/react/code/sauce-04.png",
-    image_large: "https://code.s3.yandex.net/react/code/sauce-04-large.png",
-    image_mobile: "https://code.s3.yandex.net/react/code/sauce-04-mobile.png",
-    name: "Соус фирменный Space Sauce",
-    price: 80,
-    proteins: 50,
-    type: "sauce",
-    __v: 0,
-    _id: "643d69a5c3f7b9001cfa09412",
-  },
-];
+// ... Other imports and code
 
-function countDropUniqID(array, property) {
-  return array.reduce((acc, ingredient) => {
-    if (acc[ingredient[property]]) {
-      acc[ingredient[property]].count += 1;
-    } else {
-      acc[ingredient[property]] = { count: 1 };
-    }
-    return acc;
-  }, {});
+function BurgerConstructor(props) {
+  // ... Other code
+
+  return (
+    <>
+      <div
+        className={styles.box + " pt-25"}
+        style={{ border: `1px solid ${borderColor}` }}
+        ref={drop}
+      >
+        <div className={`${styles.scrollContainer} custom-scroll`}>
+          <ul className={styles.list}>
+            {elements.map((element) => {
+              const statusLock = element.type === "bun" ? true : false;
+
+              const elementRef = useRef(null);
+
+              const [{ isDragging }, dragElement] = useDrag({
+                type: "sort",
+
+                item: () => {
+                  return { ...element };
+                },
+                collect: (monitor) => ({
+                  isDragging: monitor.isDragging(),
+                }),
+              });
+
+              dragElement(elementRef);
+
+              return (
+                <li
+                  className={`${styles.dragIconConstructorElementWrapper} mb-4`}
+                  key={element.dropUniqID}
+                  ref={elementRef}
+                >
+                  <DragIcon />
+
+                  <ConstructorElement
+                    isLocked={statusLock}
+                    text={element.name}
+                    price={element.price}
+                    thumbnail={element.image}
+                    handleClose={() => handeOnDeleteIngredient(element)}
+                  />
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+        {/* ... Other elements */}
+      </div>
+      {/* ... Other elements */}
+    </>
+  );
 }
 
-const result = countDropUniqID(selectedIngredients, "_id");
-console.log(result);
+// ... PropTypes and export

@@ -3,6 +3,7 @@
 import {
   INGREDIENT_TO_BURGER_SET,
   INGREDIENT_TO_BURGER_DELETE,
+  INGREDIENT_TO_BURGER_UPDATE,
 } from "../constants/constants";
 
 const initialState = {
@@ -12,15 +13,10 @@ const initialState = {
 export const selectedIngredientsReducer = (state = initialState, action) => {
   switch (action.type) {
     case INGREDIENT_TO_BURGER_SET: {
-      console.log(INGREDIENT_TO_BURGER_SET);
-      console.log(action.data);
-
       return {
         ...state,
         selectedIngredients: [...state.selectedIngredients, action.data],
       };
-
-      // нужно дописать помнять кол-во
     }
 
     case INGREDIENT_TO_BURGER_DELETE: {
@@ -31,6 +27,15 @@ export const selectedIngredientsReducer = (state = initialState, action) => {
         ),
       };
     }
+
+    case INGREDIENT_TO_BURGER_UPDATE: {
+      console.log(INGREDIENT_TO_BURGER_UPDATE);
+      return {
+        ...state,
+        selectedIngredients: action.data,
+      };
+    }
+
     default: {
       return state;
     }
