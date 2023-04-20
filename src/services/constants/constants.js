@@ -18,4 +18,5 @@ export const CURRENT_INGREDIENT_DELETE = "CURRENT_INGREDIENT_DELETE";
 export const INGREDIENT_TO_BURGER_SET = "INGREDIENT_TO_BURGER_SET";
 export const INGREDIENT_TO_BURGER_DELETE = "CINGREDIENT_TO_BURGER_DELETE";
 
-/* baseUrl: "https://norma.nomoreparties.space/api/ingredients", */
+//OrderDetails
+export const SET_ORDER = "SET_ORDER";

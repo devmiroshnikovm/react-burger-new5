@@ -1,11 +1,15 @@
 import styles from "./styles.module.css";
 import imageDone from "../../images/done.svg";
+import { getOrderNumberSelector } from "../../services/actions/selectors/getOrderNumberSelector";
+import { useSelector } from "react-redux";
 
 function OrderDetails() {
+  const oderNumber = useSelector(getOrderNumberSelector);
+
   return (
     <>
       <div className={styles.modalContaner}>
-        <p className="text text_type_digits-large pt-30">034536</p>
+        <p className="text text_type_digits-large pt-30">{oderNumber}</p>
         <p className="text text text_type_main-default mb-8">
           идентификатор заказа
         </p>

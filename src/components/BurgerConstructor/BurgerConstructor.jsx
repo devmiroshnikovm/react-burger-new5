@@ -18,6 +18,10 @@ import { getTotalPriceSelector } from "../../services/actions/selectors/getTotal
 import { getIngredientsForPostAPISelector } from "../../services/actions/selectors/getIngredientsForPostAPISelector";
 import { postNewOrder } from "../../services/api/index";
 
+import { setCurrentOder } from "../../services/actions/orderDetails";
+
+import { getOrderNumberSelector } from "../../services/actions/selectors/getOrderNumberSelector";
+
 import { useMemo } from "react";
 
 function BurgerConstructor(props) {
@@ -39,10 +43,26 @@ function BurgerConstructor(props) {
   // POST
   const ingredientsForPostAPI = useSelector(getIngredientsForPostAPISelector);
 
+  /*  const result = {
+    ingredients: ["643d69a5c3f7b9001cfa0943", "643d69a5c3f7b9001cfa0943"],
+  }; */
+
+  const ifSelectedElemetnsLength = ingredientsForPostAPI.ingredients.length;
+
   async function handleButtonClick() {
-    const response = await postNewOrder(ingredientsForPostAPI);
-    console.log(response);
+    console.log("handleButtonClick");
+    // if selected ingredients
+    if (ifSelectedElemetnsLength > 0) {
+      const response = await postNewOrder(ingredientsForPostAPI);
+
+      if (response.success) {
+        dispatch(setCurrentOder(response));
+      }
+    }
   }
+
+  // modal OrderDetails
+  const oderNumber = useSelector(getOrderNumberSelector);
 
   // подписываемся на новые данные из нового хранилища storegeConstructor
   const dispatch = useDispatch();
@@ -115,21 +135,23 @@ function BurgerConstructor(props) {
           <span className="ml-2 mr-10">
             <CurrencyIcon type="primary" />
           </span>
+
           <Button
             htmlType="button"
             type="primary"
             size="medium"
             onClick={handleButtonClick}
+            disabled={ifSelectedElemetnsLength === 0}
           >
             Оформить заказ
           </Button>
         </div>
       </div>
-      {isOrderDetailsOpen && (
+      {oderNumber && (
         <Modal
           header={""}
           handleCloseModal={handleCloseModal}
-          isOpen={isOpen}
+          isOpen={false}
           resetIsOrderDetailsOpen={resetIsOrderDetailsOpen}
         >
           <OrderDetails />
