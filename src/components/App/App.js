@@ -14,6 +14,8 @@ import { fetchData } from "../../services/actions/ingredients.js";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
+import { getElementsFromAPISelector } from "../../services/actions/selectors/getElementsFromAPISelector";
+
 function App() {
   const [error, setError] = useState(null);
   const [isLoading, setLoading] = useState(true);
@@ -30,7 +32,7 @@ function App() {
   }
 
   const { data, dataRequest, dataFailed } = useSelector(
-    (state) => state.ingredients
+    getElementsFromAPISelector
   );
 
   const dispatch = useDispatch();

@@ -2,6 +2,7 @@ import styles from "./styles.module.css";
 import BurgerIngredient from "../BurgerIngredient/BurgerIngredient";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
+import { getElementsFromAPIUpdatedCountsSelector } from "../../services/actions/selectors/getElementsFromAPIUpdatedCountsSelector";
 
 function ProductContainer(props) {
   const {
@@ -14,41 +15,16 @@ function ProductContainer(props) {
   } = props;
 
   // берем данные из хранилища
-  const { data, dataRequest, dataFailed } = useSelector(
-    (state) => state.ingredients
+  //const { data, dataRequest, dataFailed } = useSelector(
+  //  (state) => state.ingredientsFromAPI
 
-    // получить доступ
-    // взять массив из конструктора с уникальными id
-    // создать новый массив newData c кол-вом
-  );
-
-  /*
-  const { selectedIngredients } = useSelector(
-    (state) => {
-      state.selectedIngredients;
-    } */
-
-  const getElementsForConstructorWithCounts = (state) => {
-    const constructorItemsArray = state.selectedIngredients.selectedIngredients;
-    const burgerIngredients = state.ingredients.data; // array from API
-
-    const updatedBurgerIngredients = burgerIngredients.reduce(
-      (accumulator, itemA) => {
-        const count = constructorItemsArray.filter(
-          (itemB) => itemB._id === itemA._id
-        ).length;
-
-        accumulator.push({ ...itemA, count });
-        return accumulator;
-      },
-      []
-    );
-
-    return updatedBurgerIngredients;
-  };
+  // получить доступ
+  // взять массив из конструктора с уникальными id
+  // создать новый массив newData c кол-вом
+  //);
 
   const updatedBurgerIngredients = useSelector(
-    getElementsForConstructorWithCounts
+    getElementsFromAPIUpdatedCountsSelector
   );
 
   const elements = updatedBurgerIngredients;

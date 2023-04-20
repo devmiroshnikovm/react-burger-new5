@@ -5,14 +5,20 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../Modal/Modal";
 import OrderDetails from "../OrderDetails/OrderDetails";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
 import { useDrop } from "react-dnd";
 
 import { setIngredientToBurger } from "../../services/actions/selectedIngredients";
 import { deleteIngredientToBurger } from "../../services/actions/selectedIngredients";
-import { countDropUniqID } from "../../services/utils/utils";
+
+import { getSelectedElementsSelector } from "../../services/actions/selectors/getSelectedElementsSelector";
+import { getTotalPriceSelector } from "../../services/actions/selectors/getTotalPriceSelector";
+import { getIngredientsForPostAPISelector } from "../../services/actions/selectors/getIngredientsForPostAPISelector";
+import { postNewOrder } from "../../services/api/index";
+
+import { useMemo } from "react";
 
 function BurgerConstructor(props) {
   const { handleOpenModal, handleCloseModal, isOpen } = props;
@@ -30,36 +36,21 @@ function BurgerConstructor(props) {
     }
   }
 
+  // POST
+  const ingredientsForPostAPI = useSelector(getIngredientsForPostAPISelector);
+
+  async function handleButtonClick() {
+    const response = await postNewOrder(ingredientsForPostAPI);
+    console.log(response);
+  }
+
   // подписываемся на новые данные из нового хранилища storegeConstructor
   const dispatch = useDispatch();
-
-  const { selectedIngredients } = useSelector(
-    (state) => state.selectedIngredients
-  );
-
-  useEffect(() => {
-    const uniqIDCounts = countDropUniqID(selectedIngredients, "_id");
-
-    // при последнем элементе selectedIngredients уже 0
-    // это не работет
-    dispatch({
-      type: "UPDATE_COUNT",
-      data: uniqIDCounts,
-    });
-  }, [selectedIngredients]);
 
   // handle button click
   const handeOnDeleteIngredient = (element) => {
     dispatch(deleteIngredientToBurger(element));
-
-    data.map((element) => console.log(element._id + " " + element.count));
   };
-  //
-  //
-  //
-
-  //const board = "burgerConstructor";
-  //let count = 0;
 
   // drug drop section
   const [{ isHover }, drop] = useDrop({
@@ -71,18 +62,20 @@ function BurgerConstructor(props) {
       dispatch(setIngredientToBurger(item));
     },
   });
-
   // drug drop section
 
+  // write selection
+  const selectedElements = useSelector(getSelectedElementsSelector);
+  const totalPrice = useSelector(getTotalPriceSelector);
+
+  const memoizedTotalPrice = useMemo(() => {
+    // что мне тут делать?
+  }, [selectedElements]);
+
   // передаем элементы из нового хранилища в elements
-  const elements = selectedIngredients;
+  const elements = selectedElements;
 
   const borderColor = isHover ? "lightgreen" : "transparent";
-
-  // test
-  const { data, dataRequest, dataFailed } = useSelector(
-    (state) => state.ingredients
-  );
 
   return (
     <>
@@ -118,7 +111,7 @@ function BurgerConstructor(props) {
           </ul>
         </div>
         <div className={styles.bottomElementsWrapper + " mt-10"}>
-          <p className="text text_type_digits-medium">610</p>
+          <p className="text text_type_digits-medium">{totalPrice}</p>
           <span className="ml-2 mr-10">
             <CurrencyIcon type="primary" />
           </span>
@@ -126,7 +119,7 @@ function BurgerConstructor(props) {
             htmlType="button"
             type="primary"
             size="medium"
-            onClick={openOrderDetails}
+            onClick={handleButtonClick}
           >
             Оформить заказ
           </Button>

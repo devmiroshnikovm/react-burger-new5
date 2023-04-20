@@ -2,11 +2,16 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { fetchData } from "../../services/actions/ingredients.js";
+import { getElementsFromAPISelector } from "../../services/actions/selectors/getElementsFromAPISelector";
+
+const { data, dataRequest, dataFailed } = useSelector(
+  getElementsFromAPISelector
+);
 
 function DataFetch() {
   const dispatch = useDispatch();
   const { data, dataRequest, dataFailed } = useSelector(
-    (state) => state.ingredients
+    getElementsFromAPISelector
   );
 
   useEffect(() => {

@@ -4,9 +4,9 @@ import { currentIngredientReducer } from "./currentIngredient";
 import { selectedIngredientsReducer } from "./selectedIngredients";
 
 const rootReducer = combineReducers({
-  ingredients: ingredientsReducer,
+  ingredientsFromAPI: ingredientsReducer,
   currentIngredients: currentIngredientReducer,
-  selectedIngredients: selectedIngredientsReducer,
+  selectedItems: selectedIngredientsReducer,
 });
 
 export default rootReducer;

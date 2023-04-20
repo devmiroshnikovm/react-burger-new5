@@ -23,5 +23,3 @@ export const deleteIngredientToBurger = (element) => {
     data: element,
   };
 };
-
-// useSelector вернет только одну сумму посчитав все данные из стор

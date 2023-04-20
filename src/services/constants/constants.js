@@ -1,5 +1,5 @@
 export const config = {
-  baseUrl: "https://norma.nomoreparties.space/api/ingredients",
+  baseUrl: "https://norma.nomoreparties.space/api",
   headers: {
     "Content-Type": "application/json",
   },
@@ -17,3 +17,5 @@ export const CURRENT_INGREDIENT_DELETE = "CURRENT_INGREDIENT_DELETE";
 //ingredientsInBurger
 export const INGREDIENT_TO_BURGER_SET = "INGREDIENT_TO_BURGER_SET";
 export const INGREDIENT_TO_BURGER_DELETE = "CINGREDIENT_TO_BURGER_DELETE";
+
+/* baseUrl: "https://norma.nomoreparties.space/api/ingredients", */

@@ -19,14 +19,15 @@ function BurgerIngredients(props) {
     ...otherProps
   } = props;
 
-  //const [currentIngredient, setCurrentIngredient] = useState(null); было раньше
-  // читаем из redux
+  //import { getElementsFromAPISelector } from "../../services/actions/selectors/getElementsFromAPISelector";
+
+  //const { data, dataRequest, dataFailed } = useSelector(
+  //  getElementsFromAPISelector
+  //);
+
   const { currentIngredients } = useSelector(
     (state) => state.currentIngredients
   );
-
-  //const { data } = useSelector((state) => state.ingredients);
-  //console.log("data:", data[0]);
 
   function handleOnSelect(ingredient) {
     //setCurrentIngredient(ingredient);
