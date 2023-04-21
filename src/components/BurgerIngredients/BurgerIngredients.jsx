@@ -14,12 +14,9 @@ import { getCurrentIngredientsSelector } from "../../services/actions/selectors/
 import PropTypes from "prop-types";
 
 function BurgerIngredients(props) {
-  const { elements, ...otherProps } = props;
+  const {} = props;
   const dispatch = useDispatch();
-
   const ingredient = useSelector(getCurrentIngredientsSelector);
-
-  console.log("ingredient", ingredient);
 
   function onClose() {
     dispatch(deleteCurrentIngredient());
@@ -29,8 +26,8 @@ function BurgerIngredients(props) {
     <>
       <div className={styles.box}>
         <p className="text text_type_main-large pt-10 pb-5">Соберите бургер</p>
-        <MenuItems {...otherProps} />
-        <ProductContainer elements={elements} />
+        <MenuItems />
+        <ProductContainer />
       </div>
       {ingredient && (
         <Modal header={"Детали ингредиента"} onClose={onClose}>
@@ -42,8 +39,3 @@ function BurgerIngredients(props) {
 }
 
 export default BurgerIngredients;
-
-BurgerIngredients.propTypes = {
-  elements: PropTypes.array,
-  onClose: PropTypes.func,
-};

@@ -68,8 +68,4 @@ export default Modal;
 Modal.propTypes = {
   children: PropTypes.element.isRequired,
   header: PropTypes.string,
-  handleCloseModal: PropTypes.func,
-  isOpen: PropTypes.bool,
-  resetCurrentIngredient: PropTypes.func,
-  resetIsOrderDetailsOpen: PropTypes.func,
 };

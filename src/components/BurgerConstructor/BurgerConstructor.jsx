@@ -29,29 +29,12 @@ import { updateSelectedElements } from "../../services/actions/selectedIngredien
 import { deleteCurrentOder } from "../../services/actions/orderDetails";
 
 function BurgerConstructor(props) {
-  const { handleOpenModal, isOpen } = props;
-
-  //const [isOrderDetailsOpen, setOrderDetails] = useState(false);
+  const {} = props;
 
   const dispatch = useDispatch();
 
-  /*   function resetIsOrderDetailsOpen() {
-    setOrderDetails(false);
-  } */
-
-  /*   function openOrderDetails(e) {
-    if (handleOpenModal) {
-      handleOpenModal();
-      setOrderDetails(true);
-    }
-  } */
-
   // POST
   const ingredientsForPostAPI = useSelector(getIngredientsForPostAPISelector);
-
-  /*  const result = {
-    ingredients: ["643d69a5c3f7b9001cfa0943", "643d69a5c3f7b9001cfa0943"],
-  }; */
 
   const ifSelectedElemetnsLength = ingredientsForPostAPI.ingredients.length;
 
@@ -163,8 +146,3 @@ function BurgerConstructor(props) {
 }
 
 export default BurgerConstructor;
-
-BurgerConstructor.propTypes = {
-  elements: PropTypes.array,
-  onClose: PropTypes.func,
-};

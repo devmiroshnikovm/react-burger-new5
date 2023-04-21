@@ -5,23 +5,7 @@ import { useSelector } from "react-redux";
 import { getElementsFromAPIUpdatedCountsSelector } from "../../services/actions/selectors/getElementsFromAPIUpdatedCountsSelector";
 
 function ProductContainer(props) {
-  const {
-    elements_old,
-    handleOnSelect,
-    handleOpenModal,
-    isOpen,
-
-    ...otherProps
-  } = props;
-
-  // берем данные из хранилища
-  //const { data, dataRequest, dataFailed } = useSelector(
-  //  (state) => state.ingredientsFromAPI
-
-  // получить доступ
-  // взять массив из конструктора с уникальными id
-  // создать новый массив newData c кол-вом
-  //);
+  const {} = props;
 
   const updatedBurgerIngredients = useSelector(
     getElementsFromAPIUpdatedCountsSelector
@@ -37,13 +21,7 @@ function ProductContainer(props) {
           {elements.map((element) => {
             if (element.type === "bun") {
               return (
-                <BurgerIngredient
-                  ingredient={element}
-                  key={element._id}
-                  handleOnSelect={handleOnSelect}
-                  handleOpenModal={handleOpenModal}
-                  isOpen={isOpen}
-                />
+                <BurgerIngredient ingredient={element} key={element._id} />
               );
             }
           })}
@@ -53,13 +31,7 @@ function ProductContainer(props) {
           {elements.map((element) => {
             if (element.type === "sauce") {
               return (
-                <BurgerIngredient
-                  ingredient={element}
-                  key={element._id}
-                  handleOnSelect={handleOnSelect}
-                  handleOpenModal={handleOpenModal}
-                  isOpen={isOpen}
-                />
+                <BurgerIngredient ingredient={element} key={element._id} />
               );
             }
           })}
@@ -69,13 +41,7 @@ function ProductContainer(props) {
           {elements.map((element) => {
             if (element.type === "main") {
               return (
-                <BurgerIngredient
-                  ingredient={element}
-                  key={element._id}
-                  handleOnSelect={handleOnSelect}
-                  handleOpenModal={handleOpenModal}
-                  isOpen={isOpen}
-                />
+                <BurgerIngredient ingredient={element} key={element._id} />
               );
             }
           })}
@@ -87,8 +53,4 @@ function ProductContainer(props) {
 
 export default ProductContainer;
 
-ProductContainer.propTypes = {
-  elements: PropTypes.array,
-  handleOnSelect: PropTypes.func,
-  isOpen: PropTypes.bool,
-};
+ProductContainer.propTypes = {};
