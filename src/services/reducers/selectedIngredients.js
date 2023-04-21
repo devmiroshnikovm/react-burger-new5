@@ -13,6 +13,22 @@ const initialState = {
 export const selectedIngredientsReducer = (state = initialState, action) => {
   switch (action.type) {
     case INGREDIENT_TO_BURGER_SET: {
+      const hasBuns = state.selectedIngredients.some(
+        (ingredient) => ingredient.type === "bun"
+      );
+      const hasBunFromAction = action.data.type === "bun";
+
+      if (hasBuns && hasBunFromAction) {
+        const newSelectedIngredients = state.selectedIngredients.filter(
+          (ingredient) => ingredient.type !== "bun"
+        );
+
+        return {
+          ...state,
+          selectedIngredients: [...newSelectedIngredients, action.data],
+        };
+      }
+
       return {
         ...state,
         selectedIngredients: [...state.selectedIngredients, action.data],

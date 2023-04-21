@@ -75,7 +75,7 @@ function DraggableIngradient(props) {
   return (
     <>
       <li
-        className={`${styles.dragIconConstructorElementWrapper} mb-4`}
+        className={`${styles.dragIconConstructorElementWrapper} mb-4 ml-4 mr-4`}
         key={element.dropUniqID}
         ref={ref}
         style={{ ...styles, opacity }}

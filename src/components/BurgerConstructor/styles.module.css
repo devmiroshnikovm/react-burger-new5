@@ -1,17 +1,28 @@
 .box {
+  display: flex;
+  flex-direction: column;
+
+  align-items: flex-end;
+  justify-content: center;
+
   min-width: 600px;
   margin: 0 auto;
 }
 
-.list {
+.scrollContainerWrapper {
+  flex-grow: 1;
+
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
 }
 
-.dragIconConstructorElementWrapper {
+.bottomContainer {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
+  width: 100%;
 }
 
 .bottomElementsWrapper {
@@ -20,7 +31,18 @@
   align-items: center;
 }
 
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
 .scrollContainer {
+  display: flex;
+  flex-direction: column;
   overflow-y: scroll;
-  height: 560px;
+  max-height: 500px;
+}
+
+.bunContainer {
+  padding-left: 70px;
 }

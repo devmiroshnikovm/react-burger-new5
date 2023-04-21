@@ -73,10 +73,16 @@ function BurgerConstructor(props) {
   }, [selectedElements]);
 
   // передаем элементы из нового хранилища в elements
-  const elements = selectedElements;
+  const buns = selectedElements.filter((element) => {
+    return element.type === "bun";
+  }); // всегда одна булка
+  const elements = selectedElements.filter((element) => {
+    return element.type !== "bun";
+  });
+
+  const bun = buns[0];
 
   ///////////////////////
-
   const moveCard = useCallback(
     (dragIndex, hoverIndex) => {
       console.log(`dragIndex: ${dragIndex}, hoverIndex: ${hoverIndex}`);
@@ -104,35 +110,61 @@ function BurgerConstructor(props) {
         style={{ border: `1px solid ${borderColor}` }}
         ref={drop}
       >
-        <div className={`${styles.scrollContainer} custom-scroll`}>
-          <ul className={styles.list}>
-            {elements.map((element, index) => {
-              return (
-                <DraggableIngradient
-                  key={element.dropUniqID}
-                  element={element}
-                  index={index}
-                  moveCard={moveCard}
-                />
-              );
-            })}
-          </ul>
-        </div>
-        <div className={styles.bottomElementsWrapper + " mt-10"}>
-          <p className="text text_type_digits-medium">{totalPrice}</p>
-          <span className="ml-2 mr-10">
-            <CurrencyIcon type="primary" />
-          </span>
+        <div className={styles.scrollContainerWrapper}>
+          {bun && (
+            <div className={styles.bunContainer}>
+              <ConstructorElement
+                isLocked={true}
+                text={bun.name}
+                price={bun.price}
+                thumbnail={bun.image}
+              />
+            </div>
+          )}
 
-          <Button
-            htmlType="button"
-            type="primary"
-            size="medium"
-            onClick={handleButtonClick}
-            disabled={ifSelectedElemetnsLength === 0}
-          >
-            Оформить заказ
-          </Button>
+          <div className={`${styles.scrollContainer} custom-scroll`}>
+            <ul className={styles.list}>
+              {elements.map((element, index) => {
+                return (
+                  <DraggableIngradient
+                    key={element.dropUniqID}
+                    element={element}
+                    index={index}
+                    moveCard={moveCard}
+                  />
+                );
+              })}
+            </ul>
+          </div>
+
+          {bun && (
+            <div className={styles.bunContainer}>
+              <ConstructorElement
+                isLocked={true}
+                text={bun.name}
+                price={bun.price}
+                thumbnail={bun.image}
+              />
+            </div>
+          )}
+        </div>
+        <div class={styles.bottomContainer}>
+          <div className={styles.bottomElementsWrapper + " mt-10"}>
+            <p className="text text_type_digits-medium">{totalPrice}</p>
+            <span className="ml-2 mr-10">
+              <CurrencyIcon type="primary" />
+            </span>
+
+            <Button
+              htmlType="button"
+              type="primary"
+              size="medium"
+              onClick={handleButtonClick}
+              disabled={ifSelectedElemetnsLength === 0}
+            >
+              Оформить заказ
+            </Button>
+          </div>
         </div>
       </div>
       {oderNumber && (

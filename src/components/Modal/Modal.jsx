@@ -11,8 +11,6 @@ import PropTypes from "prop-types";
 
 const modalRoot = document.getElementById("react-modals");
 
-function resetAllStatesAfterClosingModal() {}
-
 function Modal(props) {
   const { header, onClose } = props;
 

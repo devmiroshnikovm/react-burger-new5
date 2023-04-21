@@ -7,12 +7,11 @@
   background-color: transparent;
 
   position: relative;
-  z-index: 100;
+  z-index: 0;
 }
 
 .ingredient:hover {
   cursor: pointer;
-  outline: 1px solid red;
 }
 .priceIconWrapper {
   display: flex;
