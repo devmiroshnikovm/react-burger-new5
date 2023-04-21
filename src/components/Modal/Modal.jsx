@@ -11,46 +11,26 @@ import PropTypes from "prop-types";
 
 const modalRoot = document.getElementById("react-modals");
 
+function resetAllStatesAfterClosingModal() {}
+
 function Modal(props) {
-  const {
-    header, //header
-    handleCloseModal, // меняет isOpen state в App
-    isOpen, // state в App,  if (!isOpen) return null; - это ниже в коде перед порталом
-    resetCurrentIngredient, // этот props прилетает из BurgerIngredients - тут сбрасываем state currentIngredient в BurgerIngredients
-    resetIsOrderDetailsOpen, // этот props прилетает из Burgerconstractor - тут сбрасываем state isOrderDetailsOpen в Burgerconstractor
-  } = props;
+  const { header, onClose } = props;
 
   const [domReady, setDomReady] = useState(false);
 
   /* закрытие модального окна */
-
   function handleCloseButtonClick() {
-    resetAllStatesAfterClosingModal();
-  }
-
-  function resetAllStatesAfterClosingModal() {
-    if (handleCloseModal) {
-      handleCloseModal();
-    }
-    if (resetCurrentIngredient) {
-      resetCurrentIngredient();
-    }
-    if (resetIsOrderDetailsOpen) {
-      resetIsOrderDetailsOpen();
-    }
+    onClose();
   }
 
   // по escape
   function handlePopupByEscape(event) {
     if (event.code === "Escape") {
-      if (handleCloseModal) {
-        handleCloseModal();
-      }
+      onClose();
     }
   }
 
   /* закрытие модального окна */
-
   useEffect(() => {
     // Код эффекта
     setDomReady(true);
@@ -63,8 +43,6 @@ function Modal(props) {
     };
   }, []);
 
-  if (!isOpen) return null;
-
   return domReady ? (
     createPortal(
       <>
@@ -76,9 +54,7 @@ function Modal(props) {
           <div>{props.children}</div>
         </div>
 
-        <ModalOverlay
-          resetAllStatesAfterClosingModal={resetAllStatesAfterClosingModal}
-        />
+        <ModalOverlay onClose={onClose} />
       </>,
       modalRoot
     )

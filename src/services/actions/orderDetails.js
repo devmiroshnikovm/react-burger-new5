@@ -1,4 +1,4 @@
-import { SET_ORDER } from "../constants/constants";
+import { SET_ORDER, DELETE_ORDER } from "../constants/constants";
 
 // action creators
 export const setCurrentOder = (response) => {
@@ -9,6 +9,18 @@ export const setCurrentOder = (response) => {
 
   return {
     type: SET_ORDER,
+    data: dataForInitialState,
+  };
+};
+
+export const deleteCurrentOder = () => {
+  const dataForInitialState = {
+    name: "",
+    orderNumber: "",
+  };
+
+  return {
+    type: DELETE_ORDER,
     data: dataForInitialState,
   };
 };

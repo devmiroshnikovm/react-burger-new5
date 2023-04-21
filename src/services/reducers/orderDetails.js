@@ -1,4 +1,4 @@
-import { SET_ORDER } from "../constants/constants";
+import { SET_ORDER, DELETE_ORDER } from "../constants/constants";
 
 const initialState = {
   name: "",
@@ -8,8 +8,14 @@ const initialState = {
 export const orderDetailsReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_ORDER: {
-      console.log("action");
-      console.log(action);
+      return {
+        ...state,
+        name: action.data.name,
+        orderNumber: action.data.orderNumber,
+      };
+    }
+
+    case DELETE_ORDER: {
       return {
         ...state,
         name: action.data.name,

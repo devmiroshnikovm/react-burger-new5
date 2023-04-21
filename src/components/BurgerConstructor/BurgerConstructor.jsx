@@ -26,22 +26,25 @@ import { useDrag } from "react-dnd";
 import DraggableIngradient from "../DraggableIngradient/DraggableIngradient";
 import update from "immutability-helper";
 import { updateSelectedElements } from "../../services/actions/selectedIngredients";
+import { deleteCurrentOder } from "../../services/actions/orderDetails";
 
 function BurgerConstructor(props) {
-  const { handleOpenModal, handleCloseModal, isOpen } = props;
+  const { handleOpenModal, isOpen } = props;
 
-  const [isOrderDetailsOpen, setOrderDetails] = useState(false);
+  //const [isOrderDetailsOpen, setOrderDetails] = useState(false);
 
-  function resetIsOrderDetailsOpen() {
+  const dispatch = useDispatch();
+
+  /*   function resetIsOrderDetailsOpen() {
     setOrderDetails(false);
-  }
+  } */
 
-  function openOrderDetails(e) {
+  /*   function openOrderDetails(e) {
     if (handleOpenModal) {
       handleOpenModal();
       setOrderDetails(true);
     }
-  }
+  } */
 
   // POST
   const ingredientsForPostAPI = useSelector(getIngredientsForPostAPISelector);
@@ -53,7 +56,6 @@ function BurgerConstructor(props) {
   const ifSelectedElemetnsLength = ingredientsForPostAPI.ingredients.length;
 
   async function handleButtonClick() {
-    console.log("handleButtonClick");
     // if selected ingredients
     if (ifSelectedElemetnsLength > 0) {
       const response = await postNewOrder(ingredientsForPostAPI);
@@ -66,9 +68,6 @@ function BurgerConstructor(props) {
 
   // modal OrderDetails
   const oderNumber = useSelector(getOrderNumberSelector);
-
-  // подписываемся на новые данные из нового хранилища storegeConstructor
-  const dispatch = useDispatch();
 
   // drug drop section
   const [{ isHover }, drop] = useDrop({
@@ -111,6 +110,9 @@ function BurgerConstructor(props) {
     [selectedElements, dispatch]
   );
 
+  function onClose() {
+    dispatch(deleteCurrentOder());
+  }
   const borderColor = isHover ? "lightgreen" : "transparent";
   return (
     <>
@@ -151,12 +153,7 @@ function BurgerConstructor(props) {
         </div>
       </div>
       {oderNumber && (
-        <Modal
-          header={""}
-          handleCloseModal={handleCloseModal}
-          isOpen={false}
-          resetIsOrderDetailsOpen={resetIsOrderDetailsOpen}
-        >
+        <Modal header={""} onClose={onClose}>
           <OrderDetails />
         </Modal>
       )}
@@ -169,7 +166,5 @@ export default BurgerConstructor;
 
 BurgerConstructor.propTypes = {
   elements: PropTypes.array,
-  handleOpenModal: PropTypes.func,
-  handleCloseModal: PropTypes.func,
-  isOpen: PropTypes.bool,
+  onClose: PropTypes.func,
 };

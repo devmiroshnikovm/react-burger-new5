@@ -7,60 +7,34 @@ import Modal from "../Modal/Modal";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
+import { deleteCurrentIngredient } from "../../services/actions/currentIngradients";
+import { useDispatch } from "react-redux";
+import { getCurrentIngredientsSelector } from "../../services/actions/selectors/getCurrentIngredientsSelector";
+
 import PropTypes from "prop-types";
 
 function BurgerIngredients(props) {
-  const {
-    elements,
-    handleOpenModal,
-    handleCloseModal,
-    isOpen,
+  const { elements, ...otherProps } = props;
+  const dispatch = useDispatch();
 
-    ...otherProps
-  } = props;
+  const ingredient = useSelector(getCurrentIngredientsSelector);
 
-  //import { getElementsFromAPISelector } from "../../services/actions/selectors/getElementsFromAPISelector";
+  console.log("ingredient", ingredient);
 
-  //const { data, dataRequest, dataFailed } = useSelector(
-  //  getElementsFromAPISelector
-  //);
-
-  const { currentIngredients } = useSelector(
-    (state) => state.currentIngredients
-  );
-
-  function handleOnSelect(ingredient) {
-    //setCurrentIngredient(ingredient);
-    //handleOpenModal();
-  }
-
-  function resetCurrentIngredient() {
-    //setCurrentIngredient(null);
+  function onClose() {
+    dispatch(deleteCurrentIngredient());
   }
 
   return (
     <>
-      <pre>
-        {currentIngredients[0] &&
-          JSON.stringify(currentIngredients[0], null, 2)}
-      </pre>
       <div className={styles.box}>
         <p className="text text_type_main-large pt-10 pb-5">Соберите бургер</p>
         <MenuItems {...otherProps} />
-        <ProductContainer
-          elements={elements}
-          handleOnSelect={handleOnSelect}
-          handleOpenModal={handleOpenModal}
-        />
+        <ProductContainer elements={elements} />
       </div>
-      {currentIngredients && (
-        <Modal
-          header={"Детали ингредиента"}
-          handleCloseModal={handleCloseModal}
-          isOpen={isOpen}
-          resetCurrentIngredient={resetCurrentIngredient}
-        >
-          <IngredientDetails ingredient={currentIngredients} />
+      {ingredient && (
+        <Modal header={"Детали ингредиента"} onClose={onClose}>
+          <IngredientDetails ingredient={ingredient} />
         </Modal>
       )}
     </>
@@ -71,7 +45,5 @@ export default BurgerIngredients;
 
 BurgerIngredients.propTypes = {
   elements: PropTypes.array,
-  handleOpenModal: PropTypes.func,
-  handleCloseModal: PropTypes.func,
-  isOpen: PropTypes.bool,
+  onClose: PropTypes.func,
 };

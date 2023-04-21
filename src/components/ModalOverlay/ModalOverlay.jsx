@@ -2,18 +2,13 @@ import styles from "./styles.module.css";
 import PropTypes from "prop-types";
 
 function ModalOverlay(props) {
-  const { resetAllStatesAfterClosingModal } = props;
+  const { onClose } = props;
 
-  return (
-    <div
-      className={styles.backdrop}
-      onClick={resetAllStatesAfterClosingModal}
-    ></div>
-  );
+  return <div className={styles.backdrop} onClick={onClose}></div>;
 }
 
 export default ModalOverlay;
 
 ModalOverlay.propTypes = {
-  resetAllStatesAfterClosingModal: PropTypes.func,
+  onClose: PropTypes.func,
 };

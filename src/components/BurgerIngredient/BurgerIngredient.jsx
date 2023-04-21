@@ -7,14 +7,11 @@ import { useSelector, useDispatch } from "react-redux";
 
 //import actions
 import { setCurrentIngredient } from "../../services/actions/currentIngradients";
-import { deleteCurrentIngredient } from "../../services/actions/currentIngradients";
 
 import { useDrag } from "react-dnd";
 
-import { useState } from "react";
-
 function BurgerIngredient(props) {
-  const { ingredient, handleOnSelect, handleOpenModal } = props;
+  const { ingredient } = props;
 
   const dispatch = useDispatch();
 
@@ -27,22 +24,7 @@ function BurgerIngredient(props) {
   });
 
   function handleOnclick() {
-    console.log(ingredient);
-    // handleOnSelect(ingredient); // это как было раньше
-    // сразу запишем данные в stor
-    // записываем в stor
     dispatch(setCurrentIngredient(ingredient));
-    handleOpenModal();
-
-    /* 
-    чтобы открылось окно нужно еще сделать isOpen = true
-
-
-    const [isOpen, setIsPopupOpen] = useState(false);
-    function handleOpenModal() {
-    setIsPopupOpen(true);
-  }
-    */
   }
 
   const countView = (
@@ -81,5 +63,4 @@ export default BurgerIngredient;
 
 BurgerIngredient.propTypes = {
   ingredient: PropTypes.object,
-  handleOnSelect: PropTypes.func,
 };

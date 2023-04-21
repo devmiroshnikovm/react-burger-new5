@@ -6,7 +6,7 @@ import {
 } from "../constants/constants";
 
 const initialState = {
-  currentIngredients: [],
+  currentIngredients: null,
 };
 
 export const currentIngredientReducer = (state = initialState, action) => {
@@ -20,7 +20,7 @@ export const currentIngredientReducer = (state = initialState, action) => {
     case CURRENT_INGREDIENT_DELETE: {
       return {
         ...state,
-        currentIngredients: [],
+        currentIngredients: null,
       };
     }
     default: {
