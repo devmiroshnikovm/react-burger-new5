@@ -22,12 +22,15 @@ function BurgerIngredients(props) {
     dispatch(deleteCurrentIngredient());
   }
 
+  //tabs
+  const [current, setCurrent] = useState("one");
+
   return (
     <>
       <div className={styles.box}>
         <p className="text text_type_main-large pt-10 pb-5">Соберите бургер</p>
-        <MenuItems />
-        <ProductContainer />
+        <MenuItems current={current} />
+        <ProductContainer setCurrent={setCurrent} />
       </div>
       {ingredient && (
         <Modal header={"Детали ингредиента"} onClose={onClose}>
