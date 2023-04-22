@@ -3,14 +3,11 @@ import MenuItems from "../MenuItems/MenuItems";
 import ProductContainer from "../ProductContainer/ProductContainer";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import Modal from "../Modal/Modal";
-
 import { useState } from "react";
 import { useSelector } from "react-redux";
-
 import { deleteCurrentIngredient } from "../../services/actions/currentIngradients";
 import { useDispatch } from "react-redux";
 import { getCurrentIngredientsSelector } from "../../services/actions/selectors/getCurrentIngredientsSelector";
-
 import PropTypes from "prop-types";
 
 function BurgerIngredients(props) {

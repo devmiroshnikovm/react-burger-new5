@@ -1,5 +1,6 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./styles.module.css";
+import PropTypes from "prop-types";
 
 function MenuItems(props) {
   const { current } = props;
@@ -19,3 +20,7 @@ function MenuItems(props) {
 }
 
 export default MenuItems;
+
+MenuItems.propTypes = {
+  current: PropTypes.string,
+};

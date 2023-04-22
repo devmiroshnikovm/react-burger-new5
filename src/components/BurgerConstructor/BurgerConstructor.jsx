@@ -29,7 +29,7 @@ import { updateSelectedElements } from "../../services/actions/selectedIngredien
 import { deleteCurrentOder } from "../../services/actions/orderDetails";
 
 function BurgerConstructor(props) {
-  const {} = props;
+  //const {} = props;
 
   const dispatch = useDispatch();
 
@@ -85,7 +85,7 @@ function BurgerConstructor(props) {
   ///////////////////////
   const moveCard = useCallback(
     (dragIndex, hoverIndex) => {
-      console.log(`dragIndex: ${dragIndex}, hoverIndex: ${hoverIndex}`);
+      //console.log(`dragIndex: ${dragIndex}, hoverIndex: ${hoverIndex}`);
 
       const updatedElements = update(selectedElements, {
         $splice: [
@@ -148,7 +148,7 @@ function BurgerConstructor(props) {
             </div>
           )}
         </div>
-        <div class={styles.bottomContainer}>
+        <div className={styles.bottomContainer}>
           <div className={styles.bottomElementsWrapper + " mt-10"}>
             <p className="text text_type_digits-medium">{totalPrice}</p>
             <span className="ml-2 mr-10">

@@ -59,6 +59,8 @@ function ProductContainer(props) {
 
     const currentTabName = currentTab.name;
     setCurrent(currentTabName);
+
+    //two.current.scrollIntoView(true);
   }
   return (
     <>
@@ -109,4 +111,6 @@ function ProductContainer(props) {
 
 export default ProductContainer;
 
-ProductContainer.propTypes = {};
+ProductContainer.propTypes = {
+  setCurrent: PropTypes.func,
+};
