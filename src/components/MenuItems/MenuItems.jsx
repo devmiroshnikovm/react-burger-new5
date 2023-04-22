@@ -2,6 +2,8 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./styles.module.css";
 import PropTypes from "prop-types";
 
+// need to add click
+
 function MenuItems(props) {
   const { current } = props;
   return (
