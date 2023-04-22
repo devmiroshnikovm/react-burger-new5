@@ -1,0 +1,33 @@
+.scrollContainer {
+  overflow-y: scroll;
+  height: 560px;
+}
+
+.container {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+
+  display: grid;
+  grid-auto-flow: row;
+  grid-template-columns: repeat(auto-fit, 272px);
+  row-gap: 24px;
+  column-gap: 24px;
+  justify-content: center;
+}
+
+/* .element {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #131316;
+}
+
+.priceIconWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 9px;
+}
+ */
